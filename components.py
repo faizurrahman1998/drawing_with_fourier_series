@@ -111,7 +111,7 @@ def dft(discrete_points: complex | ComplexPoint) -> list[ComplexPoint]:
 		cn = 0
 		for inx, point in enumerate(discrete_points):
 			cn += point * np.exp(-1j*2*np.pi*k*inx/len(discrete_points))		
-		coefficients.append(ComplexPoint(-cn.real/len(discrete_points), cn.imag/len(discrete_points))) #negating the real value to mirror the image w.r.t x-axis
+		coefficients.append(ComplexPoint(cn.real/len(discrete_points), cn.imag/len(discrete_points)))
 	
 	return coefficients
 

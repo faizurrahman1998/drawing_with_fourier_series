@@ -1,7 +1,7 @@
 import components as com
 import matplotlib.pyplot as plt
 
-svg_path_d = com.read_svg('./svg_files/Maple_Leaf.svg')
+svg_path_d = com.read_svg('./svg_files/math-pi.svg')
 
 # WITHOUT MIRRORING THE POINTS
 # discrete_points = com.create_discrete_points(svg_path_d, 150, mirror_wrt_x_axis=False)
