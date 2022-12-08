@@ -126,7 +126,7 @@ def draw_with_coefficients(coefficients: ComplexPoint):
 	
 	Returns: None
 	"""
-	LIMIT = (max(coefficients, key=lambda x : x.magnitude).magnitude + 1000)
+	LIMIT = (max(coefficients, key=lambda x : x.magnitude).magnitude + 800)
 	N_Samples = len(coefficients)
 
 	re_vals = []
@@ -152,11 +152,11 @@ def draw_with_coefficients(coefficients: ComplexPoint):
 			point = ComplexPoint(point.real, point.imag)
 
 			if not inx:
-				ax.add_patch(plt.Circle((0, 0), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.5))
-				ax.plot([0, point.real], [0, point.imag], alpha=0.6)
+				ax.add_patch(plt.Circle((0, 0), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.7))
+				ax.plot([0, point.real], [0, point.imag], alpha=0.9)
 			else:	
-				ax.add_patch(plt.Circle((prev_point.real, prev_point.imag), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.5))
-				ax.plot([prev_point.real, point.real], [prev_point.imag, point.imag], color = 'white', alpha=0.6)
+				ax.add_patch(plt.Circle((prev_point.real, prev_point.imag), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.7))
+				ax.plot([prev_point.real, point.real], [prev_point.imag, point.imag], color = 'white', alpha=0.9)
 
 			if (inx == N_Samples-1):
 				ax.scatter(point.real, point.imag, marker = '.', color='red')
