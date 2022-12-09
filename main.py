@@ -1,7 +1,7 @@
 import components as com
 import matplotlib.pyplot as plt
 
-svg_path_d = com.read_svg('./svg_files/Maple_Leaf.svg')
+svg_path_d = com.read_svg('./svg_files/bat.svg')
 
 # WITHOUT MIRRORING THE POINTS
 # discrete_points = com.create_discrete_points(svg_path_d, 150, mirror_wrt_x_axis=False)
@@ -12,7 +12,7 @@ discrete_points = com.create_discrete_points(svg_path_d, 150, mirror_wrt_y_axis=
 # fig.set_facecolor('slategrey')
 # ax.set_facecolor('slategrey')
 
-# ax.scatter(
+# ax.plot(
 # 	[p.real for p in discrete_points], 
 # 	[p.imag for p in discrete_points], 
 # 	marker = '.', 
