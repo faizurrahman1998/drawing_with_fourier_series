@@ -15,7 +15,8 @@ Now performing the DFT on those points will give us the Complex Frequencies pres
 those points. This can be done with `dft()` function.
 
 Then using those complex frequencies we can recreate the given signal. 
-`draw_with_coefficients()` does exactly that.
+`draw_with_coefficients()` does exactly that and its animated. 
+Change `animated = False` to just create the output.
 
 ![150 Circles](./assets/150Circles.png)
 
