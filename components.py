@@ -116,61 +116,91 @@ def dft(discrete_points: complex | ComplexPoint) -> list[ComplexPoint]:
 	return coefficients
 
 
-def draw_with_coefficients(coefficients: ComplexPoint):
+def draw_with_coefficients(coefficients: ComplexPoint, animated: bool = True):
 	"""
 	Takes in the complex frequency components, re-constructs the signal
 	and plots it.
 
 	Parameters:
 		coefficients: ComplexPoints = Complex Frequency Components
+		animated: 
 	
 	Returns: None
 	"""
 	LIMIT = (max(coefficients, key=lambda x : x.magnitude).magnitude + 800)
 	N_Samples = len(coefficients)
 
-	re_vals = []
-	im_vals = []
 
-	fig, ax = plt.subplots()
-	fig.set_size_inches(12.5, 12.5)
-	fig.set_facecolor(mcolor.CSS4_COLORS['black'])
-	ax.set_facecolor(mcolor.CSS4_COLORS['black'])
+	def draw():
+		re_vals = []
+		im_vals = []
 
-	for t in range(N_Samples):
+		for t in range(N_Samples):
+			point = ComplexPoint() 
 
-		ax.clear()
-		ax.set_xlim((-LIMIT, LIMIT))
-		ax.set_ylim((-LIMIT, LIMIT))
-		prev_point = ComplexPoint()
-		point = ComplexPoint()
-
-		for inx, cn in enumerate(coefficients):
-				
-			point += cn*np.exp(1j*inx*2*np.pi*t/N_Samples)
-			cn = ComplexPoint(cn.real, cn.imag)
-			point = ComplexPoint(point.real, point.imag)
-
-			if not inx:
-				ax.add_patch(plt.Circle((0, 0), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.7))
-				ax.plot([0, point.real], [0, point.imag], alpha=0.9)
-			else:	
-				ax.add_patch(plt.Circle((prev_point.real, prev_point.imag), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.7))
-				ax.plot([prev_point.real, point.real], [prev_point.imag, point.imag], color = 'white', alpha=0.9)
-
-			if (inx == N_Samples-1):
-				ax.scatter(point.real, point.imag, marker = '.', color='red')
-			prev_point = point
+			for inx, cn in enumerate(coefficients):
+				point += cn*np.exp(1j*inx*2*np.pi*t/N_Samples)
+			
+			re_vals.append(point.real)
+			im_vals.append(point.imag)
 		
-		re_vals.append(point.real)
-		im_vals.append(point.imag)
-		ax.plot(re_vals, im_vals, color = 'yellow')
-		plt.pause(1e-12)
+		fig, ax = plt.subplots()
+		fig.set_size_inches(12.5, 12.5)
+		fig.set_facecolor(mcolor.CSS4_COLORS['black'])
+		ax.set_facecolor(mcolor.CSS4_COLORS['black'])
 
-		if t == 0:
-			input("Press Enter to start show...")
-		print(f"{t}: ({point.real}, {point.imag})")
-		
+		ax.plot(re_vals, im_vals)
+		plt.show()
+	
 
-	input("Press Enter to close...")
+	def animated_draw():
 
+		re_vals = []
+		im_vals = []
+
+		fig, ax = plt.subplots()
+		fig.set_size_inches(12.5, 12.5)
+		fig.set_facecolor(mcolor.CSS4_COLORS['black'])
+		ax.set_facecolor(mcolor.CSS4_COLORS['black'])
+
+		for t in range(N_Samples):
+
+			ax.clear()
+			ax.set_xlim((-LIMIT, LIMIT))
+			ax.set_ylim((-LIMIT, LIMIT))
+			prev_point = ComplexPoint()
+			point = ComplexPoint()
+
+			for inx, cn in enumerate(coefficients):
+					
+				point += cn*np.exp(1j*inx*2*np.pi*t/N_Samples)
+				cn = ComplexPoint(cn.real, cn.imag)
+				point = ComplexPoint(point.real, point.imag)
+
+				if not inx:
+					ax.add_patch(plt.Circle((0, 0), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.7))
+					ax.plot([0, point.real], [0, point.imag], alpha=0.9)
+				else:	
+					ax.add_patch(plt.Circle((prev_point.real, prev_point.imag), cn.magnitude, fill = False, color=mcolor.CSS4_COLORS['skyblue'], alpha = 0.7))
+					ax.plot([prev_point.real, point.real], [prev_point.imag, point.imag], color = 'white', alpha=0.9)
+
+				if (inx == N_Samples-1):
+					ax.scatter(point.real, point.imag, marker = '.', color='red')
+				prev_point = point
+			
+			re_vals.append(point.real)
+			im_vals.append(point.imag)
+			ax.plot(re_vals, im_vals, color = 'yellow')
+			plt.pause(1e-12)
+
+			if t == 0:
+				input("Press Enter to start show...")
+			print(f"{t}: ({point.real}, {point.imag})")
+			
+
+		input("Press Enter to close...")
+	
+	if animated:
+		animated_draw()
+	else:
+		draw()

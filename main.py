@@ -22,4 +22,4 @@ discrete_points = com.create_discrete_points(svg_path_d, 150, mirror_wrt_y_axis=
 # plt.show()
 
 cn = com.dft(discrete_points)
-com.draw_with_coefficients(cn)
+com.draw_with_coefficients(cn, animated=False)
